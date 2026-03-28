@@ -23,14 +23,21 @@ async def main():
 
     while True:
         try:
-            command = listen().lower()
+            command = listen().lower().strip()
+            logger.info(f"Heard command: '{command}' (wake match: '{Config.WAKE_WORD}' in it: {Config.WAKE_WORD in command})")
 
-            if Config.WAKE_WORD in command:
-                speak("Listening")
-                command = command.replace(Config.WAKE_WORD, "")
+            if command:
+                if Config.WAKE_WORD in command:
+                    speak("Yes sir")
+                    command = command.replace(Config.WAKE_WORD, "").strip()
+                else:
+                    speak("Processing command")
 
                 await process_command(command)
 
+        except KeyboardInterrupt:
+            speak("Goodbye")
+            break
         except Exception as e:
             logger.error(f"Error in loop: {e}")
 
