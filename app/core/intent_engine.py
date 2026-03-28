@@ -7,6 +7,8 @@ import re
 def parse_intent(text: str):
     # Fallback keyword parsing if LLM fails
     text_lower = text.lower()
+    if 'daily work tools' in text_lower or 'frequent apps' in text_lower:
+        return {"intent": "open_daily_tools", "entity": ""}
     if 'open ' in text_lower:
         if any(app in text_lower for app in ['notepad', 'calc', 'chrome', 'spotify', 'recycle']):
             return {"intent": "open_app", "entity": map_app_name(text)}
@@ -44,6 +46,8 @@ def llm_parse(text: str):
         - "open recycle bin" → {{"intent": "open_app", "entity": "explorer.exe $Recycle.Bin"}}
         - "open resume" → {{"intent": "open_file", "entity": "~\\Desktop\\resume.pdf"}}
         - "open Documents" → {{"intent": "open_file", "entity": "C:\\\\Users\\\\{user_name}\\\\Documents"}}
+        - "open my daily work tools" → {{"intent": "open_daily_tools", "entity": ""}}
+        - "open frequent apps" → {{"intent": "open_daily_tools", "entity": ""}}
 
         Input: {text}
 

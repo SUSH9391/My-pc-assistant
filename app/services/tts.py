@@ -1,11 +1,6 @@
-import pyttsx3
-from loguru import logger
+from .tts_full import speak
+from app.logger import get_logger
 
-engine = pyttsx3.init()
-engine.setProperty('rate', 150)
+logger = get_logger()
 
-def speak(text):
-    if text:
-        logger.info(f"Speaking: {text}")
-        engine.say(text)
-        engine.runAndWait()
+logger.info("TTS loaded with female voice config.")

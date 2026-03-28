@@ -6,3 +6,9 @@ assistant.log
 dist/
 build/
 data/*.db
+C:\\Windows\\
+C:\\Windows\\System32\\
+C:\\ProgramData\\
+$Recycle.Bin
+node_modules/
+.DS_Store

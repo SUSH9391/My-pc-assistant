@@ -1,6 +1,7 @@
 speechrecognition
 pyaudio
 pyttsx3
+psutil
 python-dotenv
 loguru
 ollama
