@@ -36,19 +36,19 @@ def llm_parse(text: str):
     try:
         user_name = os.getenv('USERNAME', 'User')
         prompt = f"""
-Parse PC command for Windows assistant ({user_name}).
-Examples:
-- "open notepad" → {{"intent": "open_app", "entity": "notepad.exe"}}
-- "open chrome" → {{"intent": "open_app", "entity": "chrome.exe"}} 
-- "open spotify" → {{"intent": "open_app", "entity": "spotify.exe"}}
-- "open recycle bin" → {{"intent": "open_app", "entity": "explorer.exe $Recycle.Bin"}}
-- "open resume" → {{"intent": "open_file", "entity": "~\\Desktop\\resume.pdf"}}
-- "open Documents" → {{"intent": "open_file", "entity": "C:\\\\Users\\\\{user_name}\\\\Documents"}}
+        Parse PC command for Windows assistant ({user_name}).
+        Examples:
+        - "open notepad" → {{"intent": "open_app", "entity": "notepad.exe"}}
+        - "open chrome" → {{"intent": "open_app", "entity": "chrome.exe"}} 
+        - "open spotify" → {{"intent": "open_app", "entity": "spotify.exe"}}
+        - "open recycle bin" → {{"intent": "open_app", "entity": "explorer.exe $Recycle.Bin"}}
+        - "open resume" → {{"intent": "open_file", "entity": "~\\Desktop\\resume.pdf"}}
+        - "open Documents" → {{"intent": "open_file", "entity": "C:\\\\Users\\\\{user_name}\\\\Documents"}}
 
-Input: {text}
+        Input: {text}
 
-Use .exe for apps. Output ONLY valid JSON object:
-"""
+        Use .exe for apps. Output ONLY valid JSON object:
+        """
         response = ollama.chat(
             model="llama3",
             messages=[{"role": "user", "content": prompt}]
@@ -65,8 +65,8 @@ Use .exe for apps. Output ONLY valid JSON object:
         logger.error(f"LLM intent parsing failed: {e}")
         return None
 
-# Try LLM first, fallback to keywords
-intent = llm_parse(text)
-if intent is None:
-    intent = parse_intent(text)
-return intent
+    # Try LLM first, fallback to keywords
+    intent = llm_parse(text)
+    if intent is None:
+        intent = parse_intent(text)
+    return intent
