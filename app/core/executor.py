@@ -12,7 +12,8 @@ def execute(intent, entity):
             try:
                 os.startfile(entity)
             except OSError:
-                os.system(f'start "" "{entity}"')            indexer.update_access(entity)
+                os.system(f'start "" "{entity}"')            
+                indexer.update_access(entity)
             return f"Opening app: {entity}"
 
         elif intent == "open_file":
