@@ -65,7 +65,8 @@ def llm_parse(text: str):
         logger.error(f"LLM intent parsing failed: {e}")
         return None
 
-    # Try LLM first, fallback to keywords
+def get_intent(text: str):
+    """Try LLM parsing first, fallback to keyword-based parsing."""
     intent = llm_parse(text)
     if intent is None:
         intent = parse_intent(text)
